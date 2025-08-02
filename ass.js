@@ -1,47 +1,15 @@
-let input= document.querySelector('input');
-let btn = document.querySelector('button');
-let list = document.getElementById('list');
 
+const images =['https://images.unsplash.com/photo-1736890729709-4443ac5b6bf0?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',''];
 
-btn.addEventListener('click',function(){
-    let searchText = input.value;
-    fetchData(searchText);
-    input.value='';
-})
-function fetchData(searchText){
-
-
-    fetch(`https://api.tvmaze.com/search/shows?q=${searchText}`).
-    then((res)=>{
-        return res.json()
-
-    }).then((response)=>{
-        console.log(response,"kya");
-        
-        manipulateDom(response)
-
-    })
-}
-
-
-function manipulateDom(datas){
-    let figure = document.createElement('figure');
-
-    for(let data of datas){
-        let figure = document.createElement('figure');
-
-        if(data.show.image){
-            figure.innerHTML = `
-            <img src=${data.show.image.original} alt='photo'/>
-            <br/>
-            <h2> Genre: ${data.show.genres[0]} </h2>
-            `
-            list.appendChild(figure)
-        }
-    }
-}
        
-      
-    
-
+const slideShow = document.querySelector("#slideShow");
  
+let currentIndex = 0;
+
+
+setInterval(()=>{
+   
+    currentIndex = (currentIndex + 1) % images.lenght;
+    slideShow.setAttribute("src", images[currentIndex]);
+
+},2000);
